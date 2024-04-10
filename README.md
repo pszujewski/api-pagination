@@ -108,9 +108,9 @@ Other "filter" examples:
 },
 ```
 
-Please see EdelweissComponents "useProductAttributeFilters.types.ts" for more detail and examples. The objects as shown above is close to how the data and state is modeled for the current client-side filtering implementation. It would be fairly simple for the react code to adapt to these changes.
+Please see EdelweissComponents "useProductAttributeFilters.types.ts" for more detail and examples. The objects as shown above are very close to how the data and state are modeled for the current client-side filtering implementation.
 
-For convenience, here are all the "filter attributes" set up in the client. This is found in the file mentioned above:
+For convenience, here are all the "filter attributes" defined in the client. This is found in the file mentioned above:
 
 ```
 {
