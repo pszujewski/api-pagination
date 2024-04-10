@@ -141,7 +141,7 @@ For convenience, here are all the "filter attributes" defined in the client. Thi
 
 ## Proposed API: Getting the filter options for a product list
 
-Treeline API would also need to provide with the available filter options for a product list since this data would no longer be available to the client. This is an example of what that would look like:
+Treeline API would also need to provide the available filter options for a product list. Here is the proposal:
 
 ```
 POST: api/v1/list-view/products/filter-options
