@@ -4,10 +4,12 @@ The problem: There are many title list views that load many more titles than wha
 
 The proposal: we should implement **server-side in-memory pagination and add support for paginated product data REST APIs**. For example, Edelweiss already loads "all the data at once" for the Reviews Copies page into the server cache. The most straightforward way for us to add pagination to our REST APIs is to layer in "pagination" classes that support sending one "page" of product data to the client at once.
 
+"Pagination" as a feature requires three states: "filter", "sort" and "page number". The product list must be filtered and sorted before it can be paginated. Currently all this logic is managed in the client. Additionally, "filter" and "sort" require "all the data" in order to work. For example, in order to display all the possible "tag" filters, all the "tag" data must be loaded into the client. **Moving the "filter", "sort" and "page" logic to the server will no longer require the client to load "all the data at once"**.
+
 ## Propsed API: The 'catalog' API example
 
 Currently, the react list view makes the following API call for catalog and product data:
 
 ```
-GET: https://qa-api.edelweiss.plus/api/v2/catalogs/4913976/products?productProperties=images,categories,videos,dynamicAttributes,links,audienceRanges,catalogAttributes,completionSummary&apiView=standard,advanced
+GET: api/v2/catalogs/4913976/products?productProperties=images,categories,videos,dynamicAttributes,links,audienceRanges,catalogAttributes,completionSummary&apiView=standard,advanced
 ```
