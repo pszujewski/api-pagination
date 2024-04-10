@@ -221,6 +221,6 @@ And here's an example of the shape of the response for clarity using just 2 "fil
 
 ## Advantages
 
-Other than the data loading benefits, this propsed update aims to genericize how the react ProductListView loads data for a product list. Rather than needing to extend the "productProperties" etc support to different API Controllers, we can get all the data from a single endpoint. This would allow us to genericize how each ProductListView instance on the client is set up in code as well. This is actually similar to how newLook loads data for a list view with the "GetItemsList" function.
+Other than the data loading benefits, this proposal aims to genericize how the react `ProductListView` loads data for a product list. Rather than needing to extend support for the "productProperties", etc to different API Controllers, we can get all the data from a single endpoint. This would allow us to genericize how each ProductListView instance on the client is set up in code as well. This is actually similar to how newLook loads data for a list view with the "GetItemsList" function.
 
 Although the API as outlined above makes no reference to the current "refinements" implementation, the backend code behind this API could certainly leverage "refinements", but that is an implementation detail.
