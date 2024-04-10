@@ -43,7 +43,7 @@ Returns: IProductList;
 
 ```
 
-Using the same catalog example from above, this would look roughly like if many "filters" were selected:
+Using the same catalog example from above, this would look roughly like this if many "filters" were selected:
 
 ```
 POST: api/v1/list-view/products
