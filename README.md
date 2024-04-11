@@ -31,17 +31,15 @@ Request Body: {
     orderId?: int,
 }
 
-// Where 'ListType' uses 'resultTypes', which is defined in TreelineCoreLibrary. For example 'resultTypes.catalog'
-// Note: 'listId' is '?' optional because certain "lists" don't require an 'id', such as 'Reviews Copies' page and 'Buzz' page
-
 interface IProductList {
     products: List<ProductDTO>,
     totalAvailableProductsCount: int,
 }
 
 Returns: IProductList;
-
 ```
+
+In the `Request Body` above, `ListType` could refer to `resultTypes`, which is defined in TreelineCoreLibrary. For example 'resultTypes.catalog'. Also `listId` is marked as `?` optional because certain "lists" don't require an 'id', such as the 'Reviews Copies' page and the 'Buzz' page.
 
 Using the same catalog example from above, this would look roughly like this if many "filters" were selected:
 
@@ -178,14 +176,12 @@ Treeline API would also need to provide the available filter options for a produ
 POST: api/v1/list-view/products/filter-options
 
 Request Body: {
-    listId: 4913976,
     listType: ListType.Catalog,
-    markupId: 12345,
-    orderId: 678910,
+    listId?: 4913976,
+    orderId?: 678910,
+    markupId?: 12345,
     filters?: List<ProductFilterDTO>,
 }
-
-// Note: `filters?: List<ProductFilterDTO>` are the "filters already applied by the user for the product list." The currently applied filters impact the generation of the remaining filters available.
 
 interface IFilterOption {
     total: int,
@@ -198,6 +194,8 @@ interface IFilterOptionsByAttribute {
 
 Returns: IFilterOptionsByAttribute;
 ```
+
+In the `Request Body` above, `filters?: List<ProductFilterDTO>` are the "filters already applied by the user for the product list." This is necessary because the currently applied filters impact the generation of the remaining filters available.
 
 And here's a brief example of the shape of the response. For clarity, only 2 "filter attributes" are used:
 
@@ -255,7 +253,7 @@ And here's a brief example of the shape of the response. For clarity, only 2 "fi
 }
 ```
 
-Filter options should be sorted, by default, by `total`. Certain filter options might be sorted differently. For example, "Pub Date Filters" should be sorted from most recent to oldest. Retail price filters might be sorted from lowest to highest, etc.
+By default, filter options should be sorted by `total`. Certain filter options might be sorted differently. For example, "Pub Date Filters" should be sorted from most recent to oldest. Retail price filters might be sorted from lowest to highest, etc.
 
 ## Advantages
 
