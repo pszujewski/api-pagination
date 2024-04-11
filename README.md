@@ -95,16 +95,47 @@ Request Body: {
 Returns: Catalog, which adheres to IProductList;
 ```
 
-Other "filter" examples:
+The shape of the ProductFilterDTO might be defined as follows, where `label?: string` is the optional localized "display label" for a filter. This field can be optional because, in many cases, the display label for a filter can just be the filter's `value`. This would be true for a `ProductFilterAttribute.Tag` filter, for example:
+
+```
+interface IProductFilterDTO {
+    attribute: ProductFilterAttribute,
+    value: string | boolean,
+    label?: string,
+}
+```
+
+Some examples:
 
 ```
 {
+    attribute: ProductFilterAttribute.Tag,
+    value: "Spring 2024 Frontlist",
+},
+{
     attribute: ProductFilterAttribute.ReviewCopyFormat,
-    value: "digital",
+    label: "Edelweiss Web Reader",
+    value: "web-reader",
 },
 {
     attribute: ProductFilterAttribute.Note,
+    label: "No Note",
     value: false,
+},
+{
+    attribute: ProductFilterAttribute.Note,
+    label: "Has Notes",
+    value: true,
+},
+{
+    attribute: ProductFilterAttribute.Ordered,
+    label: "Ordered",
+    value: true,
+},
+{
+    attribute: ProductFilterAttribute.RetailPrice,
+    label: "$20.00 to $29.99",
+    value: "20.00_29.99",
 },
 ```
 
@@ -151,8 +182,10 @@ Request Body: {
     listType: ListType.Catalog,
     markupId: 12345,
     orderId: 678910,
-    attributes: List<ProductFilterAttribute>
+    filters?: List<ProductFilterDTO>,
 }
+
+// Note: `filters?: List<ProductFilterDTO>` are the "filters already applied by the user for the product list." The currently applied filters impact the generation of the remaining filters available.
 
 interface IFilterOption {
     total: int,
@@ -166,7 +199,7 @@ interface IFilterOptionsByAttribute {
 Returns: IFilterOptionsByAttribute;
 ```
 
-And here's an example of the shape of the response for clarity using just 2 "filter attributes":
+And here's a brief example of the shape of the response. For clarity, only 2 "filter attributes" are used:
 
 ```
 {
@@ -198,6 +231,7 @@ And here's an example of the shape of the response for clarity using just 2 "fil
             total: 22,
             filter: {
                 attribute: ProductFilterAttribute.ReviewCopyFormat,
+                label: "Digital Review Copy",
                 value: "digital",
             }
         },
@@ -205,19 +239,23 @@ And here's an example of the shape of the response for clarity using just 2 "fil
             total: 13,
             filter: {
                 attribute: ProductFilterAttribute.ReviewCopyFormat,
-                value: "web reader",
+                label: "Edelweiss Web Reader",
+                value: "web-reader",
             },
         },
         {
             total: 1,
             filter: {
                 attribute: ProductFilterAttribute.ReviewCopyFormat,
+                label: "Print Review Copy",
                 value: "print",
             }
         },
     ]
 }
 ```
+
+Filter options should be sorted, by default, by `total`. Certain filter options might be sorted differently. For example, "Pub Date Filters" should be sorted from most recent to oldest. Retail price filters might be sorted from lowest to highest, etc.
 
 ## Advantages
 
