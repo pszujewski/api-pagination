@@ -96,8 +96,8 @@ Returns: Catalog, which adheres to IProductList;
 The shape of the ProductFilterDTO might be defined as follows, where `label?: string` is the optional localized "display label" for a filter. This field can be optional because, in many cases, the display label for a filter can just be the filter's `value`. This would be true for a `ProductFilterAttribute.Tag` filter, for example:
 
 ```
-interface IProductFilterDTO {
-    attribute: ProductFilterAttribute,
+interface IFilterDTO<T> {
+    attribute: T,
     value: string | boolean,
     label?: string,
 }
